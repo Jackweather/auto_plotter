@@ -3,7 +3,6 @@ import cfgrib
 import os
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
-import geopandas as gpd
 import numpy as np
 from scipy.ndimage import gaussian_filter
 import matplotlib.colors as mcolors  # Import Normalize for colormap normalization
@@ -169,10 +168,6 @@ def generate_plot(grib_file_path, variable, type_of_level, time_step, static_dir
     # Debugging: Print converted data range
     print(f"Converted Data Min: {data.min()}, Max: {data.max()}")
 
-    print("Loading county boundaries...")
-    counties_path = os.path.join(os.path.dirname(__file__), "counties.json")
-    counties = gpd.read_file(counties_path)
-
     print("Rendering map...")
     fig = plt.figure(figsize=(14, 10))
     ax = plt.axes(projection=ccrs.PlateCarree())
@@ -186,15 +181,6 @@ def generate_plot(grib_file_path, variable, type_of_level, time_step, static_dir
     # Define the map extent
     extent = [-130, -60, 20, 55]  # [west, east, south, north]
     ax.set_extent(extent, crs=ccrs.PlateCarree())
-
-    # Draw counties (FAST)
-    ax.add_geometries(
-        counties.geometry,
-        crs=ccrs.PlateCarree(),
-        facecolor="none",
-        edgecolor="gray",
-        linewidth=0.3
-    )
 
     # Debugging: Print data shape and range
     print(f"Data shape: {data.shape}, Min: {data.min()}, Max: {data.max()}")

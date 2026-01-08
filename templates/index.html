@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variable Plotter</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Variable Plotter</h1>
+    <form id="plot-form">
+        <label for="variable">Select Variable:</label>
+        <select id="variable" name="variable">
+            {% for category, vars in variables.items() %}
+                <optgroup label="{{ category }}">
+                    {% for var in vars %}
+                        <option value="{{ var }}">{{ var }}</option>
+                    {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="time_step">Select Time Step:</label>
+        <select id="time_step" name="time_step">
+            {% for step in range(0, 385, 6) %}
+                <option value="{{ step }}">{{ step }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="color_scheme">Select Color Scheme:</label>
+        <select id="color_scheme" name="color_scheme">
+            <option value="white_to_blue">White to Blue</option>
+            <option value="white_to_red">White to Red</option>
+            <option value="white_to_green">White to Green</option>
+            <option value="white_to_purple">White to Purple</option>
+            <option value="white_to_orange">White to Orange</option>
+            <option value="custom">Custom</option>
+        </select>
+        <br><br>
+        <div id="custom-colors" style="display: none;">
+            <label for="color1">Color 1:</label>
+            <input type="color" id="color1" name="color1" value="#ffffff">
+            <br>
+            <label for="color2">Color 2:</label>
+            <input type="color" id="color2" name="color2" value="#0000ff">
+            <br>
+            <label for="color3">Color 3:</label>
+            <input type="color" id="color3" name="color3" value="#00ff00">
+            <br>
+            <label for="color4">Color 4:</label>
+            <input type="color" id="color4" name="color4" value="#ff0000">
+        </div>
+        <br><br>
+        <label for="plot_type">Select Plot Type:</label>
+        <select id="plot_type" name="plot_type">
+            <option value="contourf">Filled Contour (contourf)</option>
+            <option value="contour">Contour Lines (contour)</option>
+            <option value="pcolormesh">Pcolormesh</option>
+        </select>
+        <br><br>
+        <button type="submit">Generate Plot</button>
+    </form>
+    <br>
+    <div id="plot-container">
+        <h2>Generated Plot:</h2>
+        <img id="plot-image" src="" alt="Plot will appear here">
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#color_scheme').on('change', function() {
+                if ($(this).val() === 'custom') {
+                    $('#custom-colors').show();
+                } else {
+                    $('#custom-colors').hide();
+                }
+            });
+
+            $('#plot-form').on('submit', function(e) {
+                e.preventDefault();
+                const formData = $(this).serialize();
+                $.post('/plot', formData, function(response) {
+                    const plotImage = $('#plot-image');
+                    if (plotImage.attr('src')) {
+                        const newSrc = response.plot_url + '?t=' + new Date().getTime();
+                        plotImage.attr('src', newSrc);
+                    } else {
+                        plotImage.attr('src', response.plot_url);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

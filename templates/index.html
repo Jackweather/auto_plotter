@@ -14,7 +14,7 @@
             {% for category, vars in variables.items() %}
                 <optgroup label="{{ category }}">
                     {% for var in vars %}
-                        <option value="{{ var }}">{{ var }}</option>
+                        <option value="{{ var.short_name }}">{{ var.full_name }}</option>
                     {% endfor %}
                 </optgroup>
             {% endfor %}
@@ -90,6 +90,48 @@
                 });
             });
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add click event listeners to variable elements
+            document.querySelectorAll('.variable-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const variable = item.dataset.variable; // Get the variable short_name
+                    console.log(`Fetching details for variable: ${variable}`);
+
+                    // Make an AJAX request to fetch variable details
+                    fetch('/variable_info', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ variable })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            // Display variable details
+                            const detailsDiv = document.getElementById('variable-details');
+                            detailsDiv.innerHTML = `
+                                <h3>Variable Details</h3>
+                                <p><strong>Short Name:</strong> ${data.short_name}</p>
+                                <p><strong>Full Name:</strong> ${data.full_name}</p>
+                                <p><strong>Type of Level:</strong> ${data.type_of_level}</p>
+                            `;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching variable details:', error);
+                        alert('Failed to fetch variable details.');
+                    });
+                });
+            });
+        });
     </script>
+
+    <div id="variable-details" style="margin-top: 20px;">
+        <!-- Variable details will be displayed here -->
+    </div>
 </body>
 </html>

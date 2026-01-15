@@ -52,12 +52,17 @@ def get_latest_run():
 
 @app.route('/')
 def index():
-    return render_template('index.html', variables=data)
+    # Transform the JSON structure for the frontend
+    variables = {
+        level: [{"short_name": var["short_name"], "full_name": var["full_name"]} for var in vars]
+        for level, vars in data.items()
+    }
+    return render_template('index.html', variables=variables)
 
 @app.route('/plot', methods=['POST'])
 def plot():
     # Get user input from the frontend
-    variable = request.form.get('variable')
+    variable = request.form.get('variable')  # This is the short_name
     time_step = request.form.get('time_step')
     color_scheme = request.form.get('color_scheme')  # Get the color scheme
     plot_type = request.form.get('plot_type')  # Get the plot type
@@ -76,7 +81,8 @@ def plot():
     # Determine the typeOfLevel based on the variable
     type_of_level = None
     for level, variables in data.items():
-        if variable in variables:
+        # Match the short_name in the new structure
+        if any(var["short_name"] == variable for var in variables):
             type_of_level = level
             break
 
@@ -151,6 +157,8 @@ def plot():
             print(f"Deleted GRIB2 file: {grib_file_path}")
 
     return jsonify({'plot_url': f'/static/plot.png'})
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

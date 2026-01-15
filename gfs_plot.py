@@ -32,7 +32,7 @@ UNIT_CONVERSIONS = {
         "hindex": {"func": lambda x: x, "unit": ""},  # Numeric (no conversion needed)
         "sp": {"func": lambda x: x / 100, "unit": "hPa"},  # Pa to hPa
         "orog": {"func": lambda x: x * 3.28084, "unit": "feet"},  # m to feet
-        "t": {"func": lambda x: x - 273.15, "unit": "°C"},  # K to °C
+        "t": {"func": lambda x: (x - 273.15) * 9/5 + 32, "unit": "°F"},  # K to °F
         "cnwat": {"func": lambda x: x, "unit": "kg/m²"},  # kg/m² (no conversion needed)
         "sdwe": {"func": lambda x: x, "unit": "kg/m²"},  # kg/m² (no conversion needed)
         "sde": {"func": lambda x: x * 3.28084, "unit": "feet"},  # m to feet
@@ -51,37 +51,14 @@ UNIT_CONVERSIONS = {
         "lftx4": {"func": lambda x: x, "unit": "K"},  # K (no conversion needed)
         "lsm": {"func": lambda x: x, "unit": ""},  # (0-1) (no conversion needed)
         "siconc": {"func": lambda x: x, "unit": ""},  # (0-1) (no conversion needed)
-        "sit": {"func": lambda x: x - 273.15, "unit": "°C"},  # K to °C
+        
     },
     "planetaryBoundaryLayer": {
         "u": {"func": lambda x: x * 2.23694, "unit": "mph"},  # m/s to mph
         "v": {"func": lambda x: x * 2.23694, "unit": "mph"},  # m/s to mph
         "VRATE": {"func": lambda x: x, "unit": "m²/s"},  # m²/s (no conversion needed)
     },
-    "isobaricInPa": {
-        "gh": {"func": lambda x: x * 0.0328084, "unit": "feet"},  # gpm to feet
-        "t": {"func": lambda x: x - 273.15, "unit": "°C"},  # K to °C
-        "r": {"func": lambda x: x, "unit": "%"},  # % (no conversion needed)
-        "q": {"func": lambda x: x, "unit": "kg/kg"},  # kg/kg (no conversion needed)
-        "w": {"func": lambda x: x, "unit": "Pa/s"},  # Pa/s (no conversion needed)
-        "wz": {"func": lambda x: x, "unit": "m/s"},  # m/s (no conversion needed)
-        "u": {"func": lambda x: x * 2.23694, "unit": "mph"},  # m/s to mph
-        "v": {"func": lambda x: x * 2.23694, "unit": "mph"},  # m/s to mph
-        "absv": {"func": lambda x: x, "unit": "s⁻¹"},  # s⁻¹ (no conversion needed)
-        "o3mr": {"func": lambda x: x, "unit": "kg/kg"},  # kg/kg (no conversion needed)
-    },
-    "isobaricInhPa": {
-        "gh": {"func": lambda x: x * 0.0328084, "unit": "feet"},  # gpm to feet
-        "t": {"func": lambda x: x - 273.15, "unit": "°C"},  # K to °C
-        "r": {"func": lambda x: x, "unit": "%"},  # % (no conversion needed)
-        "q": {"func": lambda x: x, "unit": "kg/kg"},  # kg/kg (no conversion needed)
-        "w": {"func": lambda x: x, "unit": "Pa/s"},  # Pa/s (no conversion needed)
-        "wz": {"func": lambda x: x, "unit": "m/s"},  # m/s (no conversion needed)
-        "u": {"func": lambda x: x * 2.23694, "unit": "mph"},  # m/s to mph
-        "v": {"func": lambda x: x * 2.23694, "unit": "mph"},  # m/s to mph
-        "absv": {"func": lambda x: x, "unit": "s⁻¹"},  # s⁻¹ (no conversion needed)
-        "o3mr": {"func": lambda x: x, "unit": "kg/kg"},  # kg/kg (no conversion needed)
-    },
+    
     "heightAboveGround": {
         "refd": {"func": lambda x: x, "unit": "dB"},  # dB (no conversion needed)
     },
@@ -99,13 +76,15 @@ UNIT_CONVERSIONS = {
     "tropopause": {
         "trpp": {"func": lambda x: x / 100, "unit": "hPa"},  # Pa to hPa
         "icaht": {"func": lambda x: x * 3.28084, "unit": "feet"},  # m to feet
-        "gh": {"func": lambda x: x * 0.0328084, "unit": "feet"},  # gpm to feet
-        "t": {"func": lambda x: x - 273.15, "unit": "°C"},  # K to °C
-        "u": {"func": lambda x: x * 2.23694, "unit": "mph"},  # m/s to mph
-        "v": {"func": lambda x: x * 2.23694, "unit": "mph"},  # m/s to mph
         "vwsh": {"func": lambda x: x, "unit": "s⁻¹"},  # s⁻¹ (no conversion needed)
     },
-    # Add other levels and variables as needed...
+    "maxWind": {
+        "pres": {"func": lambda x: x / 100, "unit": "hPa"},  # Pa to hPa
+    },
+    "sigma": {
+    "pt": {"func": lambda x: (x - 273.15) * 9/5 + 32, "unit": "°F"},  # Convert K to °F
+}
+
 }
 
 def convert_units(data, variable, type_of_level):

@@ -113,7 +113,7 @@ def get_unit_label(variable, type_of_level):
         return UNIT_CONVERSIONS[type_of_level][variable]["unit"]
     return "Unknown Unit"
 
-def generate_plot(grib_file_path, variable, type_of_level, time_step, static_dir, color_scheme, plot_type, step_type="instant", custom_colors=None, run_dir=None):
+def generate_plot(grib_file_path, variable, type_of_level, time_step, static_dir, color_scheme, plot_type, step_type="instant", custom_colors=None, run_dir=None, map_extent="global"):
 
     print(f"Opening GRIB2 file: {grib_file_path}")
     try:
@@ -157,8 +157,14 @@ def generate_plot(grib_file_path, variable, type_of_level, time_step, static_dir
     ax.add_feature(cfeature.LAKES, edgecolor="black", linewidth=0.3)
     ax.add_feature(cfeature.RIVERS, linewidth=0.3)
 
-    # Define the map extent
-    extent = [-130, -60, 20, 55]  # [west, east, south, north]
+    # Define the map extent based on the selected option
+    extent_options = {
+        "global": [-180, 180, -90, 90],  # [west, east, south, north]
+        "usa": [-130, -60, 20, 55],
+        "europe": [-30, 60, 30, 70],
+        "south_america": [-90, -30, -60, 15],
+    }
+    extent = extent_options.get(map_extent, [-180, 180, -90, 90])  # Default to global if not found
     ax.set_extent(extent, crs=ccrs.PlateCarree())
 
     # Debugging: Print data shape and range

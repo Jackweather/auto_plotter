@@ -1,162 +1,95 @@
 {
     "meanSea": [
-        "prmsl",
-        "mslet"
+        { "short_name": "prmsl", "full_name": "Mean Sea Level Pressure" },
+        { "short_name": "mslet", "full_name": "MSL Pressure" }
     ],
     "hybrid": [
-        "clwmr",
-        "icmr",
-        "rwmr",
-        "snmr",
-        "grle"
+        { "short_name": "clwmr", "full_name": "Cloud  Mixing Ratio" },
+        { "short_name": "icmr", "full_name": "Ice Mixing Ratio" },
+        { "short_name": "rwmr", "full_name": "Rain Mixing Ratio" },
+        { "short_name": "snmr", "full_name": "Snow Mixing Ratio" },
+        { "short_name": "grle", "full_name": "Graupel " }
     ],
     "atmosphere": [
-        "refc",
-        "tcc"
+        { "short_name": "refc", "full_name": "Composite Reflectivity" },
+        { "short_name": "tcc", "full_name": "Total Cloud Cover" }
     ],
     "surface": [
-        "vis",
-        "gust",
-        "hindex",
-        "sp",
-        "orog",
-        "t",
-        "cnwat",
-        "sdwe",
-        "sde",
-        "sithick",
-        "cpofp",
-        "prate",
-        "csnow",
-        "cicep",
-        "cfrzr",
-        "crain",
-        "fsr",
-        "fricv",
-        "veg",
-        "slt",
-        "wilt",
-        "fldcp",
-        "SUNSD",
-        "lftx",
-        "cape",
-        "cin",
-        "lftx4",
-        "unknown",
-        "lsm",
-        "siconc",
-        "sit"
+        { "short_name": "vis", "full_name": "Visibility" },
+        { "short_name": "gust", "full_name": "Wind Speed Gust" },
+        { "short_name": "hindex", "full_name": "Haines Index" },
+        { "short_name": "sp", "full_name": " Pressure" },
+        { "short_name": "orog", "full_name": "Surface Roughness" },
+        { "short_name": "t", "full_name": " 2m-Temperature" },
+        { "short_name": "cnwat", "full_name": "plant Canopy surface Water" },
+        { "short_name": "sdwe", "full_name": "Snow Water Equivalent Needs fixing" },
+        { "short_name": "sde", "full_name": "Snow Depth Needs fixing " },
+        { "short_name": "sithick", "full_name": "Ice Thickness" },
+        { "short_name": "cpofp", "full_name": "Percent Frozen Precipitation" },
+        { "short_name": "prate", "full_name": "Precipitation Rate" },
+        { "short_name": "fsr", "full_name": "Frozen Soil Depth Needs fixing" },
+        { "short_name": "fricv", "full_name": "Surface Friction Velocity" },
+        { "short_name": "veg", "full_name": "Vegetation Fraction" },
+        { "short_name": "slt", "full_name": "Soil Liquid Temperature Needs fixing" },
+        { "short_name": "wilt", "full_name": "Wilting Point" },
+        { "short_name": "fldcp", "full_name": "Field Capacity" },
+        { "short_name": "SUNSD", "full_name": "Sunshine Duration" },
+        { "short_name": "lftx", "full_name": "Surface Lifted Index" },
+        { "short_name": "cape", "full_name": "Convective Available Potential Energy" },
+        { "short_name": "cin", "full_name": "Convective Inhibition )" },
+        { "short_name": "lftx4", "full_name": "Best Lifted Index" },
+        { "short_name": "lsm", "full_name": "Land Surface Mask" },
+        { "short_name": "siconc", "full_name": "Sea Ice Concentration" }
+        
     ],
     "planetaryBoundaryLayer": [
-        "u",
-        "v",
-        "VRATE"
+        { "short_name": "u", "full_name": "U-Component of Wind" },
+        { "short_name": "v", "full_name": "V-Component of Wind" },
+        { "short_name": "VRATE", "full_name": "Ventilation Rate" }
     ],
-    "isobaricInPa": [
-        "gh",
-        "t",
-        "r",
-        "q",
-        "w",
-        "wz",
-        "u",
-        "v",
-        "absv",
-        "o3mr"
-    ],
-    "isobaricInhPa": [
-        "gh",
-        "t",
-        "r",
-        "q",
-        "w",
-        "wz",
-        "u",
-        "v",
-        "absv",
-        "o3mr"
-    ],
+    
     "heightAboveGround": [
-        "refd"
+        { "short_name": "refd", "full_name": "Reflectivity error" }
     ],
     "depthBelowLandLayer": [
-        "st",
-        "soilw",
-        "soill"
+        { "short_name": "st", "full_name": "Soil Temperature error" },
+        { "short_name": "soilw", "full_name": "Soil Moisture error" },
+        { "short_name": "soill", "full_name": "Soil Liquid Water error" }
     ],
-    "heightAboveSea": [
-        "unknown"
-    ],
+    
     "atmosphereSingleLayer": [
-        "pwat",
-        "cwat",
-        "r",
-        "tozne"
+        { "short_name": "pwat", "full_name": "Precipitable Water" },
+        { "short_name": "cwat", "full_name": "Cloud Water" },
+        { "short_name": "r", "full_name": "Relative Humidity" },
+        { "short_name": "tozne", "full_name": "Total Ozone" }
     ],
     "lowCloudLayer": [
-        "lcc"
+        { "short_name": "lcc", "full_name": "Low Cloud Cover" }
     ],
     "middleCloudLayer": [
-        "mcc"
+        { "short_name": "mcc", "full_name": "Middle Cloud Cover" }
     ],
     "highCloudLayer": [
-        "hcc"
+        { "short_name": "hcc", "full_name": "High Cloud Cover" }
     ],
     "cloudCeiling": [
-        "gh"
+        { "short_name": "gh", "full_name": "Geopotential Height" }
     ],
     "heightAboveGroundLayer": [
-        "hlcy"
+        { "short_name": "hlcy", "full_name": "Storm relative helicity" }
     ],
     "tropopause": [
-        "trpp",
-        "icaht",
-        "gh",
-        "t",
-        "u",
-        "v",
-        "vwsh"
+        { "short_name": "trpp", "full_name": "Tropopause Pressure" },
+        { "short_name": "icaht", "full_name": "ICAO standard atmosphere reference height" },
+        { "short_name": "vwsh", "full_name": "Vertical speed Shear" }
     ],
     "maxWind": [
-        "pres",
-        "icaht",
-        "gh",
-        "u",
-        "v",
-        "t"
-    ],
-    "isothermZero": [
-        "gh",
-        "r"
-    ],
-    "highestTroposphericFreezing": [
-        "gh",
-        "r"
-    ],
-    "pressureFromGroundLayer": [
-        "t",
-        "r",
-        "q",
-        "u",
-        "v"
-    ],
-    "sigmaLayer": [
-        "r"
+        { "short_name": "pres", "full_name": "Pressure" }
+
+    
     ],
     "sigma": [
-        "t",
-        "pt",
-        "r",
-        "u",
-        "v",
-        "w"
-    ],
-    "potentialVorticity": [
-        "u",
-        "v",
-        "t",
-        "gh",
-        "pres",
-        "vwsh"
+         { "short_name": "pt", "full_name": "Potential Temperature" }
+        
     ]
 }

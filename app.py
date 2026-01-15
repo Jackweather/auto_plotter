@@ -66,7 +66,9 @@ def plot():
     time_step = request.form.get('time_step')
     color_scheme = request.form.get('color_scheme')  # Get the color scheme
     plot_type = request.form.get('plot_type')  # Get the plot type
+    map_extent = request.form.get('map_extent')  # Get the map extent
     print(f"Received request to plot variable: {variable}, time step: {time_step}, color scheme: {color_scheme}, plot type: {plot_type}")
+    print(f"Selected map extent: {map_extent}")
 
     # Handle custom colormap
     custom_colors = None
@@ -143,7 +145,7 @@ def plot():
     try:
         plot_path = generate_plot(
             grib_file_path, variable, type_of_level, time_step, static_dir, color_scheme, plot_type,
-            custom_colors=custom_colors, run_dir=run_dir
+            custom_colors=custom_colors, run_dir=run_dir, map_extent=map_extent
         )
         print(f"Plot successfully generated at: {plot_path}")
     except Exception as e:
@@ -157,8 +159,6 @@ def plot():
             print(f"Deleted GRIB2 file: {grib_file_path}")
 
     return jsonify({'plot_url': f'/static/plot.png'})
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)

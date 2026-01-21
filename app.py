@@ -5,6 +5,7 @@ import traceback
 import json  # Import the JSON module
 from gfs_plot import generate_plot  # Import the plotting function
 from datetime import datetime, timedelta  # Import datetime utilities
+import uuid  # Import UUID for unique filenames
 
 app = Flask(__name__)
 
@@ -126,8 +127,14 @@ def plot():
         os.makedirs(static_dir)
         print(f"Created static directory: {static_dir}")
 
-    # Download the GRIB2 file
-    grib_file_path = os.path.join(BASE_DIR, file_name)
+    # Ensure the grib_files folder exists
+    grib_dir = os.path.join(BASE_DIR, 'grib_files')
+    if not os.path.exists(grib_dir):
+        os.makedirs(grib_dir)
+        print(f"Created grib_files directory: {grib_dir}")
+
+    # Download the GRIB2 file into the grib_files folder
+    grib_file_path = os.path.join(grib_dir, file_name)
     try:
         print(f"Downloading GRIB2 file to: {grib_file_path}")
         response = requests.get(file_url, stream=True)
@@ -141,11 +148,15 @@ def plot():
         print(error_message)
         return jsonify({'error': error_message})
 
+    # Generate a unique filename for the plot
+    unique_filename = f"plot_{uuid.uuid4().hex}.png"
+    plot_path = os.path.join(static_dir, unique_filename)
+
     # Delegate the plotting to gfs_plot.py
     try:
         plot_path = generate_plot(
             grib_file_path, variable, type_of_level, time_step, static_dir, color_scheme, plot_type,
-            custom_colors=custom_colors, run_dir=run_dir, map_extent=map_extent
+            custom_colors=custom_colors, run_dir=run_dir, map_extent=map_extent, output_filename=unique_filename
         )
         print(f"Plot successfully generated at: {plot_path}")
     except Exception as e:
@@ -158,7 +169,7 @@ def plot():
             os.remove(grib_file_path)
             print(f"Deleted GRIB2 file: {grib_file_path}")
 
-    return jsonify({'plot_url': f'/static/plot.png'})
+    return jsonify({'plot_url': f'/static/{unique_filename}'})
 
 if __name__ == '__main__':
     app.run(debug=True)

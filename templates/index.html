@@ -88,10 +88,14 @@
                 e.preventDefault();
                 const formData = $(this).serialize();
                 $.post('/plot', formData, function(response) {
-                    const plotImage = $('#plot-image');
                     if (response.plot_url) {
-                        const newSrc = response.plot_url + '?t=' + new Date().getTime(); // Append timestamp to avoid caching
-                        plotImage.attr('src', newSrc);
+                        // Create a unique container for the new plot
+                        const plotContainer = $('<div class="plot-item"></div>');
+                        const plotImage = $('<img>').attr('src', response.plot_url + '?t=' + new Date().getTime());
+                        plotContainer.append(plotImage);
+
+                        // Append the new plot to the plot-container
+                        $('#plot-container').append(plotContainer);
                     } else {
                         alert('Failed to generate plot.');
                     }

@@ -113,7 +113,7 @@ def get_unit_label(variable, type_of_level):
         return UNIT_CONVERSIONS[type_of_level][variable]["unit"]
     return "Unknown Unit"
 
-def generate_plot(grib_file_path, variable, type_of_level, time_step, static_dir, color_scheme, plot_type, step_type="instant", custom_colors=None, run_dir=None, map_extent="global", output_filename="plot.png"):
+def generate_plot(grib_file_path, variable, type_of_level, time_step, static_dir, color_scheme, plot_type, step_type="instant", custom_colors=None, run_dir=None, map_extent="global", output_filename="plot.png", full_name=None):
 
     print(f"Opening GRIB2 file: {grib_file_path}")
     try:
@@ -290,7 +290,11 @@ def generate_plot(grib_file_path, variable, type_of_level, time_step, static_dir
         run_info = "Run: Unknown"
 
     # Set the title for the plot
-    ax.set_title(f"{variable}   •   Forecast Hour {time_step}\n{run_info}", fontsize=14, fontweight="bold")
+    ax.set_title(
+        f"{full_name} ({variable})   •   Forecast Hour {time_step}\n{run_info}",
+        fontsize=14,
+        fontweight="bold"
+    )
 
     # Save the plot with the unique filename
     os.makedirs(static_dir, exist_ok=True)

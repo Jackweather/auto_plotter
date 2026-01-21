@@ -96,6 +96,23 @@ def plot():
 
     print(f"Determined typeOfLevel: {type_of_level} for variable: {variable}")
 
+    # Retrieve the full name of the variable
+    full_name = None
+    for level, variables in data.items():
+        for var in variables:
+            if var["short_name"] == variable:
+                full_name = var["full_name"]
+                break
+        if full_name:
+            break
+
+    if not full_name:
+        error_message = f"Full name for variable '{variable}' not found in the predefined data dictionary."
+        print(error_message)
+        return jsonify({'error': error_message})
+
+    print(f"Determined full name: {full_name} for variable: {variable}")
+
     # Determine the most recent available run directory
     try:
         run_dir = get_latest_run()
@@ -156,7 +173,8 @@ def plot():
     try:
         plot_path = generate_plot(
             grib_file_path, variable, type_of_level, time_step, static_dir, color_scheme, plot_type,
-            custom_colors=custom_colors, run_dir=run_dir, map_extent=map_extent, output_filename=unique_filename
+            custom_colors=custom_colors, run_dir=run_dir, map_extent=map_extent, output_filename=unique_filename,
+            full_name=full_name  # Pass the full name to the plotting function
         )
         print(f"Plot successfully generated at: {plot_path}")
     except Exception as e:

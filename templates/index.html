@@ -89,11 +89,11 @@
                 const formData = $(this).serialize();
                 $.post('/plot', formData, function(response) {
                     const plotImage = $('#plot-image');
-                    if (plotImage.attr('src')) {
-                        const newSrc = response.plot_url + '?t=' + new Date().getTime();
+                    if (response.plot_url) {
+                        const newSrc = response.plot_url + '?t=' + new Date().getTime(); // Append timestamp to avoid caching
                         plotImage.attr('src', newSrc);
                     } else {
-                        plotImage.attr('src', response.plot_url);
+                        alert('Failed to generate plot.');
                     }
                 });
             });

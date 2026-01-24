@@ -271,11 +271,48 @@ def generate_plot(grib_file_path, variable, type_of_level, time_step, static_dir
             norm=norm,
             transform=ccrs.PlateCarree()
         )
+    elif plot_type == "imshow":
+        plot = ax.imshow(
+            data,
+            cmap=cmap,
+            norm=norm,
+            extent=[lons.min(), lons.max(), lats.min(), lats.max()],
+            origin="upper",
+            transform=ccrs.PlateCarree()
+        )
+    elif plot_type == "tripcolor":
+        plot = ax.tripcolor(
+            lons.flatten(),
+            lats.flatten(),
+            data.flatten(),
+            cmap=cmap,
+            norm=norm,
+            transform=ccrs.PlateCarree()
+        )
+    elif plot_type == "tricontourf":
+        plot = ax.tricontourf(
+            lons.flatten(),
+            lats.flatten(),
+            data.flatten(),
+            levels=levels,
+            cmap=cmap,
+            norm=norm,
+            transform=ccrs.PlateCarree()
+        )
+    elif plot_type == "matshow":
+        plot = ax.matshow(
+            data,
+            cmap=cmap,
+            norm=norm,
+            extent=[lons.min(), lons.max(), lats.min(), lats.max()],
+            origin="upper",
+            transform=ccrs.PlateCarree()
+        )
     else:
         raise ValueError(f"Invalid plot type: {plot_type}")
 
-    # Add a colorbar for contourf and pcolormesh
-    if plot_type in ["contourf", "pcolormesh"]:
+    # Add a colorbar for contourf and pcolorfast
+    if plot_type in ["contourf", "pcolormesh", "imshow", "tripcolor", "tricontourf", "matshow"]:
         cbar = plt.colorbar(plot, orientation="horizontal", pad=0.03, aspect=50)
         # Add the unit label to the color bar
         unit_label = get_unit_label(variable, type_of_level)

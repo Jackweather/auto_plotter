@@ -67,6 +67,10 @@ def plot():
     time_step = request.form.get('time_step')
     color_scheme = request.form.get('color_scheme')  # Get the color scheme
     plot_type = request.form.get('plot_type')  # Get the plot type
+    if plot_type == "pcolorfast":
+        error_message = "The 'pcolorfast' plot type is not supported."
+        print(error_message)
+        return jsonify({'error': error_message})
     map_extent = request.form.get('map_extent')  # Get the map extent
     print(f"Received request to plot variable: {variable}, time step: {time_step}, color scheme: {color_scheme}, plot type: {plot_type}")
     print(f"Selected map extent: {map_extent}")
